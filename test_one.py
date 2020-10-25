@@ -6,6 +6,7 @@ import numpy as np
 from PIL import Image
 from glob import glob
 import cv2
+import matplotlib.pyplot as plt
 
 def single_pic_proc(image_file):
     image = np.array(Image.open(image_file).convert('RGB'))
@@ -13,9 +14,11 @@ def single_pic_proc(image_file):
     return result,image_framed
 
 def dis(image):
-    cv2.imshow('image', image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    plt.imshow(image)
+    plt.show()
+    #cv2.imshow('image', image)
+    #cv2.waitKey(0)
+    #cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     import sys
