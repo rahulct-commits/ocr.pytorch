@@ -35,7 +35,7 @@ def dis(image):
     cv2.destroyAllWindows()
 
 
-def get_det_boxes(image,display = True, expand = True):
+def get_det_boxes(image, display = True, expand = True):
     image = resize(image, height=height)
     image_r = image.copy()
     image_c = image.copy()

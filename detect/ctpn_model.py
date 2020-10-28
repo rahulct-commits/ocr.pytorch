@@ -105,7 +105,7 @@ class CTPN_Model(nn.Module):
 
         x1 = x.permute(0,2,3,1).contiguous()  # channels last   [b, h, w, c]
         b = x1.size()  # b, h, w, c
-        x1 = x1.view(b[0]*b[1], b[2], b[3])
+        x1 = x1.view(b[0]*b[1], b[2], b[3]) 
 
         x2, _ = self.brnn(x1)
 
@@ -126,3 +126,7 @@ class CTPN_Model(nn.Module):
         regr = regr.view(regr.size(0), regr.size(1)*regr.size(2)*10, 2)
 
         return cls, regr
+
+if __name__ == '__main__':
+    test = torch.rand()
+    
