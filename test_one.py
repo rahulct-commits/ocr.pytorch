@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 def single_pic_proc(image_file):
     image = np.array(Image.open(image_file).convert('RGB'))
     result, image_framed = ocr(image)
-    return result,image_framed
+    return result, image_framed
 
 def dis(image):
     plt.imshow(image)

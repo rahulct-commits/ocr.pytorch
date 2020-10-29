@@ -35,7 +35,7 @@ def dis(image):
     cv2.destroyAllWindows()
 
 
-def get_det_boxes(image, display = True, expand = True):
+def get_det_boxes(image, display = True, expand = True, disp_per=True):
     image = resize(image, height=height)
     image_r = image.copy()
     image_c = image.copy()
@@ -94,18 +94,20 @@ def get_det_boxes(image, display = True, expand = True):
             image_c = image_c+blank
             image_c[image_c>255] = 255
             for i in text:
+                # percentage
                 s = str(round(i[-1] * 100, 2)) + '%'
                 i = [int(j) for j in i]
                 cv2.line(image_c, (i[0], i[1]), (i[2], i[3]), (0, 0, 255), 2)
                 cv2.line(image_c, (i[0], i[1]), (i[4], i[5]), (0, 0, 255), 2)
                 cv2.line(image_c, (i[6], i[7]), (i[2], i[3]), (0, 0, 255), 2)
                 cv2.line(image_c, (i[4], i[5]), (i[6], i[7]), (0, 0, 255), 2)
-                cv2.putText(image_c, s, (i[0]+13, i[1]+13),
-                            cv2.FONT_HERSHEY_SIMPLEX,
-                            1,
-                            (255,0,0),
-                            2,
-                            cv2.LINE_AA)
+                if disp_per is True:
+                    cv2.putText(image_c, s, (i[0]+13, i[1]+13),
+                                cv2.FONT_HERSHEY_SIMPLEX,
+                                1,  
+                                (255,0,0),
+                                2,
+                                cv2.LINE_AA)
             # dis(image_c)
         # print(text)
         return text,image_c,image_r
