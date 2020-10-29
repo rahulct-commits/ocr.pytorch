@@ -74,7 +74,7 @@ def plot_on_img(img, res):
             cv2.FONT_HERSHEY_SIMPLEX,
             1,  
             (255,0,0),
-            0.3,
+            1,
             cv2.LINE_AA
         )
     cv2.imwrite('xxyy.png', img)
