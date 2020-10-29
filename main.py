@@ -35,17 +35,15 @@ class SomeRequest(BaseModel):
 # ----------------------------------------
 # custom
 # ----------------------------------------
+import os, time, cv2, shutil, base64
 import numpy as np
-import cv2
-import os
 from ocr import ocr
-import time
-import shutil
 from PIL import Image
 from glob import glob
-import cv2
 import matplotlib.pyplot as plt
 from detect.ctpn_utils import resize
+
+
 height = 720
 
 def single_pic_proc(rgbimg):
@@ -77,7 +75,8 @@ def plot_on_img(img, res):
             1,
             cv2.LINE_AA
         )
-    cv2.imwrite('xxyy.png', img)
+    #cv2.imwrite('xxyy.png', img)
+    return base64.b64encode(img)
 
 
 # ==============================================================================================
@@ -100,7 +99,8 @@ def create_upload_file(file: UploadFile = File(...)):
     if file.filename.endswith('jpg') or file.filename.endswith('jpeg') or file.filename.endswith('png'):
         img = get_rgb_from_spooled_tempfile(file.file)
         res, imframed = single_pic_proc(img)
-        plot_on_img(imframed, res)
+        b64 = plot_on_img(imframed, res)
+        print(b64)
         return {"status": 'success'}
     else:
         print('image format exception')
