@@ -60,6 +60,7 @@ def api_home(request: Request):
 def create_upload_file(file: UploadFile = File(...)):
     img_file = file.file
     #img = cv2.imread(img_file)
+    print('name:', img_file.filename)
     print('recv:', type(img_file.read()))
 
     return {
