@@ -58,10 +58,12 @@ def api_home(request: Request):
 
 @app.post("/uploadfile/")
 def create_upload_file(file: UploadFile = File(...)):
-    img_file = file.file
-    #img = cv2.imread(img_file)
-    print('name:', img_file.filename)
-    print('recv:', type(img_file.read()))
+    byte_img = file.file.read()
+    print('name:', file.filename)
+    print('recv:', type(byte_img))
+    decoded = cv2.imdecode(np.frombuffer(byte_img, np.uint8), -1)
+    print('decoded:', decoded.shape, type(decoded))
+    
 
     return {
 		"status": 'success'
