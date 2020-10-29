@@ -125,7 +125,7 @@ def create_upload_file(file: UploadFile = File(...)):
 
 
 @app.post("/test/")
-def create_upload_file(request: Request):
+def test():
     context = {
         'request': 'req'
     }
