@@ -13,7 +13,7 @@ def sort_box(box):
     """
     Sort the box
     """
-    print('before sorting:', np.sum())
+    print('before sorting:', np.sum(box))
     box = sorted(box, key=lambda x: sum([x[1], x[3], x[5], x[7]]))
     print('after sorting:', np.sum(box))
     return box
