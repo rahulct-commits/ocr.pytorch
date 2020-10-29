@@ -91,6 +91,9 @@ def create_upload_file(file: UploadFile = File(...)):
     if file.filename.endswith('jpg') or file.filename.endswith('jpeg') or file.filename.endswith('png'):
         img = get_rgb_from_spooled_tempfile(file.file)
         res, imframed = single_pic_proc(img)
+        print('shapes:', imframed.shape, img.shape)
+        plot_on_img(img, res)
+        print(res)
         return {"status": 'success'}
     else:
         print('image format exception')
