@@ -64,11 +64,11 @@ def plot_on_img(img, res):
         #       |      text      |
         # (4,5) + ---------------+ (6,7)
         # 8 - acc score
-        img = resize(img, height=height)
-        cv2.line(img, (int(v[0][0]), int(v[0][1])), (int(v[0][2]), int(v[0][3])), (0, 0, 255), 2)
-        cv2.line(img, (int(v[0][0]), int(v[0][1])), (int(v[0][4]), int(v[0][5])), (0, 0, 255), 2)
-        cv2.line(img, (int(v[0][6]), int(v[0][7])), (int(v[0][2]), int(v[0][3])), (0, 0, 255), 2)
-        cv2.line(img, (int(v[0][4]), int(v[0][5])), (int(v[0][6]), int(v[0][7])), (0, 0, 255), 2)
+        # img = resize(img, height=height)
+        # cv2.line(img, (int(v[0][0]), int(v[0][1])), (int(v[0][2]), int(v[0][3])), (0, 0, 255), 2)
+        # cv2.line(img, (int(v[0][0]), int(v[0][1])), (int(v[0][4]), int(v[0][5])), (0, 0, 255), 2)
+        # cv2.line(img, (int(v[0][6]), int(v[0][7])), (int(v[0][2]), int(v[0][3])), (0, 0, 255), 2)
+        # cv2.line(img, (int(v[0][4]), int(v[0][5])), (int(v[0][6]), int(v[0][7])), (0, 0, 255), 2)
         cv2.putText(img, v[1]+f"({v[0][8]:.2f})",
             (int(v[0][0]), int(v[0][1])),
             cv2.FONT_HERSHEY_SIMPLEX,
@@ -100,7 +100,7 @@ def create_upload_file(file: UploadFile = File(...)):
     if file.filename.endswith('jpg') or file.filename.endswith('jpeg') or file.filename.endswith('png'):
         img = get_rgb_from_spooled_tempfile(file.file)
         res, imframed = single_pic_proc(img)
-        plot_on_img(img, res)
+        plot_on_img(imframed, res)
         return {"status": 'success'}
     else:
         print('image format exception')
