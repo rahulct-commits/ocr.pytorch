@@ -26,7 +26,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 from fastapi import Request # for get
 from pydantic import BaseModel # for post
 
-class SomekRequest(BaseModel):
+class SomeRequest(BaseModel):
 	status: str
 
 
@@ -56,7 +56,23 @@ def get_rgb_from_spooled_tempfile(spooled_tempfile):
     bgrimg = cv2.imdecode(np.frombuffer(byte_img, np.uint8), 1) # 1 - BGR
     return cv2.cvtColor(bgrimg, cv2.COLOR_BGR2RGB)
 
+def plot_on_img(img, res):
+    for _, v in res.items():
+        # (0,1) + ---------------+ (2,3)
+        #       |      text      |
+        # (4,5) + ---------------+ (6,7)
+        # 8 - acc score
+
+        cv2.line(img, (v[0][0], v[0][1]), (v[0][2], v[0][3]), (0, 0, 255), 2)
+        cv2.line(img, (v[0][0], v[0][1]), (v[0][4], v[0][5]), (0, 0, 255), 2)
+        cv2.line(img, (v[0][6], v[0][7]), (v[0][2], v[0][3]), (0, 0, 255), 2)
+        cv2.line(img, (v[0][4], v[0][5]), (v[0][6], v[0][7]), (0, 0, 255), 2)
+    
+    cv2.imwrite('xxyy.png', img)
+
+
 # ==============================================================================================
+# Application Interface
 # ==============================================================================================
 @app.get("/")
 def api_home(request: Request):
@@ -75,7 +91,6 @@ def create_upload_file(file: UploadFile = File(...)):
     if file.filename.endswith('jpg') or file.filename.endswith('jpeg') or file.filename.endswith('png'):
         img = get_rgb_from_spooled_tempfile(file.file)
         res, imframed = single_pic_proc(img)
-        print(res)
         return {"status": 'success'}
     else:
         print('image format exception')
