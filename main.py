@@ -58,11 +58,10 @@ def api_home(request: Request):
 
 @app.post("/uploadfile/")
 def create_upload_file(file: UploadFile = File(...)):
-    byte_img = file.file.read()
-    print('name:', file.filename)
-    print('recv:', type(byte_img))
-    decoded = cv2.imdecode(np.frombuffer(byte_img, np.uint8), -1)
-    print('decoded:', decoded.shape, type(decoded))
+    byte_img = file.file.read() # type `byte`
+    print('file reached:', file.filename)
+    bgrimg = cv2.imdecode(np.frombuffer(byte_img, np.uint8), 1) #bgr
+    rgbimg = cv2.cvtColor(bgrimg, cv2.COLOR_BGR2RGB)
     
 
     return {
