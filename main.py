@@ -26,8 +26,8 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 from fastapi import Request # for get
 from pydantic import BaseModel # for post
 
-class SomeRequest(BaseModel):
-	status: str
+class b64Request(BaseModel):
+	b64: str
 
 
 
@@ -94,13 +94,25 @@ def api_home(request: Request):
 	return templates.TemplateResponse("home.html", context)
 
 
+@app.post("/display/")
+def display(request: b64Request):
+	"""
+	home page to display all real time values
+	"""
+	context = {
+		"request": 'success',
+        'b64': b64Request.b64
+	}
+	return templates.TemplateResponse("out.html", context)
+
+
+
 @app.post("/uploadfile/")
 def create_upload_file(file: UploadFile = File(...)):
     if file.filename.endswith('jpg') or file.filename.endswith('jpeg') or file.filename.endswith('png'):
         img = get_rgb_from_spooled_tempfile(file.file)
         res, imframed = single_pic_proc(img)
         b64 = plot_on_img(imframed, res)
-        print(b64)
         context = {
             "request": 'success',
             "b64": b64
@@ -110,3 +122,11 @@ def create_upload_file(file: UploadFile = File(...)):
     else:
         print('image format exception')
         return {"status": 'image format exception'}
+
+
+@app.post("/test/")
+def create_upload_file(request: Request):
+    context = {
+        'request': 'req'
+    }
+    return templates.TemplateResponse("out.html", context)
