@@ -16,6 +16,7 @@ def single_pic_proc(image_file):
 def dis(image):
     plt.imshow(image)
     plt.show()
+    cv2.imwrite('result.png', image)
     #cv2.imshow('image', image)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
