@@ -74,10 +74,7 @@ def charRec(img, text_recs, adjust=False):
 
 def ocr(image):
     # detect
-    print("BF (initial) :", image.shape)
-    text_recs, img_framed, image = get_det_boxes(image, disp_per=False)
-    print("AF (initial) :", image.shape)
-    
+    text_recs, img_framed, image = get_det_boxes(image, disp_per=False)    
     text_recs = sort_box(text_recs)
     result = charRec(image, text_recs)
     return result, img_framed
