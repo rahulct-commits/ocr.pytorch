@@ -102,7 +102,7 @@ def create_upload_file(file: UploadFile = File(...)):
         b64 = plot_on_img(imframed, res)
         print(b64)
         context = {
-            "status": 'success',
+            "request": 'success',
             "b64": b64
         }
         return templates.TemplateResponse("out.html", context)
