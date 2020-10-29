@@ -45,6 +45,8 @@ from PIL import Image
 from glob import glob
 import cv2
 import matplotlib.pyplot as plt
+from detect.ctpn_utils import resize
+height = 720
 
 def single_pic_proc(rgbimg):
     """ input is numpy arr """
@@ -62,7 +64,7 @@ def plot_on_img(img, res):
         #       |      text      |
         # (4,5) + ---------------+ (6,7)
         # 8 - acc score
-        
+        img = resize(img, height=height)
         cv2.line(img, (int(v[0][0]), int(v[0][1])), (int(v[0][2]), int(v[0][3])), (0, 0, 255), 2)
         cv2.line(img, (int(v[0][0]), int(v[0][1])), (int(v[0][4]), int(v[0][5])), (0, 0, 255), 2)
         cv2.line(img, (int(v[0][6]), int(v[0][7])), (int(v[0][2]), int(v[0][3])), (0, 0, 255), 2)
