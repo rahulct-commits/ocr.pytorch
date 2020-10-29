@@ -51,8 +51,8 @@ def single_pic_proc(rgbimg):
     result, image_framed = ocr(rgbimg)
     return result, image_framed
 
-def get_rgb_from_spooled_tempfile(file):
-    byte_img = file.file.read() # type `byte`
+def get_rgb_from_spooled_tempfile(spooled_tempfile):
+    byte_img = spooled_tempfile.read() # type `byte` 
     bgrimg = cv2.imdecode(np.frombuffer(byte_img, np.uint8), 1) # 1 - BGR
     return cv2.cvtColor(bgrimg, cv2.COLOR_BGR2RGB)
 
@@ -76,12 +76,7 @@ def create_upload_file(file: UploadFile = File(...)):
         img = get_rgb_from_spooled_tempfile(file.file)
         res, imframed = single_pic_proc(img)
         print(res)
-
-        return {
-            "status": 'success'
-        }
+        return {"status": 'success'}
     else:
         print('image format exception')
-        return {
-            "status": 'image format exception'
-        }
+        return {"status": 'image format exception'}
