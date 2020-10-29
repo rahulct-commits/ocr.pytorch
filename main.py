@@ -76,7 +76,7 @@ def plot_on_img(img, res):
             cv2.LINE_AA
         )
     #cv2.imwrite('xxyy.png', img)
-    return base64.b64encode(img)
+    return base64.b64encode(img.tobytes())
 
 
 # ==============================================================================================
