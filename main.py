@@ -69,7 +69,7 @@ def plot_on_img(img, res):
         # cv2.line(img, (int(v[0][0]), int(v[0][1])), (int(v[0][4]), int(v[0][5])), (0, 0, 255), 2)
         # cv2.line(img, (int(v[0][6]), int(v[0][7])), (int(v[0][2]), int(v[0][3])), (0, 0, 255), 2)
         # cv2.line(img, (int(v[0][4]), int(v[0][5])), (int(v[0][6]), int(v[0][7])), (0, 0, 255), 2)
-        cv2.putText(img, #v[1]+f"({v[0][8]:.2f})",
+        cv2.putText(img, v[1],#+f"({v[0][8]:.2f})",
             (int(v[0][0]), int(v[0][1])),
             cv2.FONT_HERSHEY_SIMPLEX,
             1,  
