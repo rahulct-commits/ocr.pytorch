@@ -105,7 +105,7 @@ def create_upload_file(file: UploadFile = File(...)):
             "request": 'success',
             "b64": b64
         }
-        return templates.TemplateResponse("out.html", context)
+        return context
 
     else:
         print('image format exception')
