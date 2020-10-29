@@ -25,7 +25,7 @@ if __name__ == '__main__':
     import sys
     if len(sys.argv)>=2:
         filename = sys.argv[1]
-        if filename.endswith('jpg') or filename.endswith('png'):
+        if filename.endswith('jpg') or filename.endswith('jpeg') or filename.endswith('png'):
             result, image_framed = single_pic_proc(filename)
             print(result)
             dis(image_framed)

@@ -33,14 +33,28 @@ class SomekRequest(BaseModel):
 
 
 # ----------------------------------------
-# define structure for requests (Pydantic & more)
+# custom
 # ----------------------------------------
 import numpy as np
 import cv2
+import os
+from ocr import ocr
+import time
+import shutil
+from PIL import Image
+from glob import glob
+import cv2
+import matplotlib.pyplot as plt
 
+def single_pic_proc(rgbimg):
+    """ input is numpy arr """
+    result, image_framed = ocr(rgbimg)
+    return result, image_framed
 
-
-
+def get_rgb_from_spooled_tempfile(file):
+    byte_img = file.file.read() # type `byte`
+    bgrimg = cv2.imdecode(np.frombuffer(byte_img, np.uint8), 1) # 1 - BGR
+    return cv2.cvtColor(bgrimg, cv2.COLOR_BGR2RGB)
 
 # ==============================================================================================
 # ==============================================================================================
@@ -58,12 +72,16 @@ def api_home(request: Request):
 
 @app.post("/uploadfile/")
 def create_upload_file(file: UploadFile = File(...)):
-    byte_img = file.file.read() # type `byte`
-    print('file reached:', file.filename)
-    bgrimg = cv2.imdecode(np.frombuffer(byte_img, np.uint8), 1) #bgr
-    rgbimg = cv2.cvtColor(bgrimg, cv2.COLOR_BGR2RGB)
-    
+    if file.filename.endswith('jpg') or file.filename.endswith('jpeg') or file.filename.endswith('png'):
+        img = get_rgb_from_spooled_tempfile(file.file)
+        res, imframed = single_pic_proc(img)
+        print(res)
 
-    return {
-		"status": 'success'
-	}
+        return {
+            "status": 'success'
+        }
+    else:
+        print('image format exception')
+        return {
+            "status": 'image format exception'
+        }
