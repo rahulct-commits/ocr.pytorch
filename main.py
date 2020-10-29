@@ -59,8 +59,8 @@ def api_home(request: Request):
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile = File(...)):
     img_file = file.file
-    img = cv2.imread(img_file)
-    print('recv:', img.shape)
+    #img = cv2.imread(img_file)
+    print('recv:', type(img_file))
 
     return {
 		"status": 'success'
