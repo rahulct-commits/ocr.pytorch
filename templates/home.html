@@ -65,7 +65,7 @@
             </div>
         </div>
     </div>
-    <img id='img'>
+    <img id='img' src="">
     <!-- Icons made by Smashicons https://www.flaticon.com/authors/smashicons -->
 
     <script>
@@ -82,7 +82,10 @@
                 'Content-Type': 'multipart/form-data'
                 }
             }).then(response => {
-                container.src = response.data.b64
+                container.setAttribute(
+                    'src',
+                    "data:image/png;base64, " + response.data.b64
+                )
                 console.log(response.data)
             }
             )
