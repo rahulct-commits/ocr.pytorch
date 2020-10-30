@@ -42,7 +42,8 @@ from PIL import Image
 from glob import glob
 import matplotlib.pyplot as plt
 from detect.ctpn_utils import resize
-
+from PIL import Image
+from io import BytesIO
 
 height = 720
 
@@ -76,7 +77,13 @@ def plot_on_img(img, res):
             cv2.LINE_AA
         )
     #cv2.imwrite('xxyy.png', img)
-    return base64.b64encode(img.tobytes())
+
+    bg = Image.fromarray(np.uint8(img)).convert('RGB')
+    outputBuffer = BytesIO()
+    bg.save(outputBuffer, format='JPEG')
+    bgBase64Data = outputBuffer.getvalue()
+    return 'data:image/jpeg;base64,' + base64.b64encode(bgBase64Data).decode()
+    #return base64.b64encode(img.tobytes())
 
 
 # ==============================================================================================
