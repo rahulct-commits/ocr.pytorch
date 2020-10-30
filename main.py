@@ -123,10 +123,3 @@ def create_upload_file(file: UploadFile = File(...)):
         print('image format exception')
         return {"status": 'image format exception'}
 
-
-@app.post("/test/")
-def test():
-    context = {
-        'request': 'req'
-    }
-    return templates.TemplateResponse("out.html", context)

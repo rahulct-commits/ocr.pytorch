@@ -65,10 +65,11 @@
             </div>
         </div>
     </div>
+    <img id='img'>
     <!-- Icons made by Smashicons https://www.flaticon.com/authors/smashicons -->
 
     <script>
-        const container = document.getElementById('container')
+        const container = document.getElementById('img')
 
         const uploadFile = document.getElementById('input');
         uploadFile.addEventListener("change", ()=>{
@@ -81,9 +82,7 @@
                 'Content-Type': 'multipart/form-data'
                 }
             }).then(response => {
-                container.innerHTML = `
-                    <img src='${response.data.b64}'>
-                `
+                container.src = response.data.b64
                 console.log(response.data)
             }
             )
