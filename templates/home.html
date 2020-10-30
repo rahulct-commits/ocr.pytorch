@@ -81,7 +81,9 @@
                 'Content-Type': 'multipart/form-data'
                 }
             }).then(response => {
-                container.innerHTML = `${response.data.b64}`
+                container.innerHTML = `
+                    <img src='${response.data.b64}'>
+                `
                 console.log(response.data)
             }
             )
