@@ -82,14 +82,9 @@
                 'Content-Type': 'multipart/form-data'
                 }
             }).then(response => {
-                let TYPED_ARRAY = new Uint8Array(response.data.buffer);
-                const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
-                    return data + String.fromCharCode(byte);
-                }, '')
-                let base64String = window.btoa(STRING_CHAR);
+                let base64String = Buffer.from(response.data.buffer, 'binary').toString('base64');
                 img.src = base64String
-                console.log(base64String)
-                console.log(response.data)
+                console.log('convt:', base64String)
             }
             )
         })
