@@ -112,10 +112,10 @@ def create_upload_file(file: UploadFile = File(...)):
     if file.filename.endswith('jpg') or file.filename.endswith('jpeg') or file.filename.endswith('png'):
         img = get_rgb_from_spooled_tempfile(file.file)
         res, imframed = single_pic_proc(img)
-        b64 = plot_on_img(imframed, res)
+        b64_byte_buffer = plot_on_img(imframed, res)
         context = {
             "request": 'success',
-            "b64": b64
+            "buffer": b64_byte_buffer
         }
         return context
 

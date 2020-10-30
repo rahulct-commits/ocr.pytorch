@@ -69,7 +69,7 @@
     <!-- Icons made by Smashicons https://www.flaticon.com/authors/smashicons -->
 
     <script>
-        const container = document.getElementById('img')
+        const img = document.getElementById('img')
 
         const uploadFile = document.getElementById('input');
         uploadFile.addEventListener("change", ()=>{
@@ -82,10 +82,13 @@
                 'Content-Type': 'multipart/form-data'
                 }
             }).then(response => {
-                container.setAttribute(
-                    'src',
-                    "data:image/png;base64, " + response.data.b64
-                )
+                let TYPED_ARRAY = new Uint8Array(response.data.buffer);
+                const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+                    return data + String.fromCharCode(byte);
+                }, '')
+                let base64String = window.btoa(STRING_CHAR);
+                img.src = base64String
+                console.log(base64String)
                 console.log(response.data)
             }
             )
