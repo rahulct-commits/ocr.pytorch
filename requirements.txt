@@ -1,0 +1,10 @@
+numpy
+pandas
+matplotlib
+pytorch
+opencv-contrib-python
+fastapi
+torchvision
+uvicorn
+aiofiles
+python-multipart
