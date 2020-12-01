@@ -1,3 +1,5 @@
+#python -m uvicorn main:app --reload
+
 ## ocr.pytorch
 > A pure pytorch implemented ocr project.    
 Text detection is based CTPN and text recognition is based CRNN.  

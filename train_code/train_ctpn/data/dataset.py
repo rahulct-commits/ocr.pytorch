@@ -41,7 +41,6 @@ class VOCDataset(Dataset):
                  datadir,
                  labelsdir):
         '''
-
         :param txtfile: image name list text file
         :param datadir: image's directory
         :param labelsdir: annotations' directory
